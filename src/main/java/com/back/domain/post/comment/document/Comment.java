@@ -1,4 +1,4 @@
-package com.back.domain.post.post.document;
+package com.back.domain.post.comment.document;
 
 import com.back.global.BaseDocument;
 import lombok.Data;
@@ -8,22 +8,23 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-@Document(indexName = "posts")
+@Document(indexName = "comments")
 @Data
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class Post extends BaseDocument<String> {
-    @Field(type= FieldType.Text)
-    private String title;
+public class Comment extends BaseDocument<String> {
 
-    @Field(type= FieldType.Text)
+    @Field(type = FieldType.Keyword)
+    private String postId;
+
+    @Field(type = FieldType.Text)
     private String content;
 
-    @Field(type= FieldType.Keyword)
+    @Field(type = FieldType.Keyword)
     private String author;
 
-    public Post(String title, String content, String author){
-        this.title = title;
+    public Comment(String postId, String content, String author) {
+        this.postId = postId;
         this.content = content;
         this.author = author;
     }
