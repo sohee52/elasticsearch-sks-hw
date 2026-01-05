@@ -19,11 +19,13 @@ public class BaseInitData {
         return args->{
             System.out.println("ApplicationRunner 빈은 스프링에 등록되면 자동으로 실행됩니다");
             work1();
+            work2();
         };
     }
 
     private void work1(){
         log.debug("Post entity 개수: {}",postService.count());
+        log.debug("샘플 Post 데이터 생성");
         if (postService.count() == 0){
             for (int i = 1; i <= 10; i++) {
                 String title = "Sample Post Title " + i;
@@ -32,6 +34,13 @@ public class BaseInitData {
                 Post post = postService.create(title, content, author);
                 log.debug("Created Post: {}", post);
             }
+        }
+    }
+
+    private void work2(){
+        log.debug("기존 Post 전체 조회");
+        for (Post post : postService.findAll()) {
+            log.debug("Existing Post: {}", post);
         }
     }
 }
